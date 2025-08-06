@@ -18,7 +18,7 @@
         </header>
         
         <section class="input-section">
-            <h2 class="section-title">Digite el nombre de los participantes</h2>
+            <h2 class="section-title">Agrega los nombres de tus amigos</h2>
             <div class="input-wrapper">
                 <input type="text" id="amigo" class="input-name" placeholder="Escribe un nombre">
                 <button class="button-add" onclick="agregarAmigo()">Añadir</button>
@@ -26,29 +26,84 @@
            
             <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list"></ul>
             
-            <div class="sorteo-section">
+            <!-- Botón para iniciar el sorteo -->
+            <div class="button-start-sorteo" style="display: none;">
+                <button class="button-start-sorteo" onclick="iniciarSorteo()" aria-label="Iniciar sorteo">
+                    🎯 Iniciar Sorteo
+                </button>
+            </div>
+            
+            <!-- Sección para sortear amigo -->
+            <div class="sorteo-section" style="display: none;">
                 <h3 class="sorteo-title">¿Quién va a sortear?</h3>
                 <div class="input-wrapper">
                     <input type="text" id="nombreSortear" class="input-name" placeholder="Escribe tu nombre">
-                    <button class="button-draw" onclick="sortearAmigo()" aria-label="Sortear amigo secreto">
+                    <!-- Botón para sortear amigo secreto -->
+                    <button class="button-draw" onclick="sortearAmigo()" aria-label="Sortear amigo secreto" disabled>
                         <img src="assets/play_circle_outline.png" alt="Ícono para sortear">
                         Sortear amigo
                     </button>
                 </div>
             </div>
             
-            <ul id="resultado" class="result-list" aria-live="polite"></ul>
+            
 
-            <div class="button-container">
-                <button class="button-reset" onclick="reiniciarSorteo()" aria-label="Reiniciar sorteo">
-                    Reiniciar sorteo
-                </button>
+            <!-- Reiniciar sorteo -->
+            <div class="butcontainers">
+                <div class="button-container">
+                    <button class="button-restart"  onclick="window.location.reload()" aria-label="Reiniciar sorteo">
+                        Reiniciar
+                    </button>
+                </div>
+                <div class="button-container">
+                    <button class="button-reset"  onclick="reiniciarSorteo()" aria-label="Reiniciar sorteo">
+                         Nuevo juego
+                    </button>
+                </div>
             </div>
-        </section>
+           
         </section>
         
         <!-- Contenedor de Toasts -->
         <div id="toast-container" class="toast-container"></div>
+        
+        <!-- Modal de Resultado -->
+        <div id="modalOverlay" class="modal-overlay" style="display: none;">
+            <div class="modal-container" id="modalContainer">
+                <!-- Confetti -->
+                <div class="confetti" style="left: 10%; animation-delay: 0s;"></div>
+                <div class="confetti" style="left: 20%; animation-delay: 0.5s;"></div>
+                <div class="confetti" style="left: 30%; animation-delay: 1s;"></div>
+                <div class="confetti" style="left: 40%; animation-delay: 1.5s;"></div>
+                <div class="confetti" style="left: 50%; animation-delay: 2s;"></div>
+                <div class="confetti" style="left: 60%; animation-delay: 0.3s;"></div>
+                <div class="confetti" style="left: 70%; animation-delay: 0.8s;"></div>
+                <div class="confetti" style="left: 80%; animation-delay: 1.3s;"></div>
+                <div class="confetti" style="left: 90%; animation-delay: 1.8s;"></div>
+                
+                <button class="modal-close" onclick="cerrarModal()">×</button>
+                
+                <div class="modal-header">
+                    <div class="modal-icon">🎁</div>
+                    <h1 class="modal-title">¡Amigo Secreto Asignado!</h1>
+                    <p class="modal-subtitle">¡La magia del sorteo ha funcionado! Aquí tienes tu resultado:</p>
+                </div>
+                
+                <div class="modal-content" id="modalContent">
+                    
+                    <div class="result-person" id="resultPerson">Nombre de la persona</div>
+                    <div class="result-label">TU AMIGO SECRETO ES:</div>
+                    <div class="result-arrow">🎯</div>
+                    <div class="result-amigo" id="resultAmigo">Nombre del amigo secreto</div>
+                </div>
+                
+                <div class="modal-note">
+                    <strong>💡 Nota importante:</strong> Esta información es completamente confidencial. 
+                    ¡No la compartas con nadie más que contigo mismo!
+                </div>
+
+            </div>
+        </div>
     </main>
 
     <script src="app.js" defer></script>
