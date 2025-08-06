@@ -35,13 +35,17 @@
             
             <!-- Sección para sortear amigo -->
             <div class="sorteo-section" style="display: none;">
-                <h3 class="sorteo-title">¿Quién va a sortear?</h3>
+                <h3 class="sorteo-title">¿Quién eres?</h3>
                 <div class="input-wrapper">
                     <input type="text" id="nombreSortear" class="input-name" placeholder="Escribe tu nombre">
                     <!-- Botón para sortear amigo secreto -->
                     <button class="button-draw" onclick="sortearAmigo()" aria-label="Sortear amigo secreto" disabled>
                         <img src="assets/play_circle_outline.png" alt="Ícono para sortear">
                         Sortear amigo
+                    </button>
+                    <button class="button-req" onclick="sortearAmigo()" aria-label="Sortear amigo secreto" style="display: none;">
+                        
+                        Recordar
                     </button>
                 </div>
             </div>
@@ -57,7 +61,7 @@
                 </div>
                 <div class="button-container">
                     <button class="button-reset"  onclick="reiniciarSorteo()" aria-label="Reiniciar sorteo">
-                         Nuevo juego
+                         Nuevo 
                     </button>
                 </div>
             </div>
@@ -102,8 +106,20 @@
                     ¡No la compartas con nadie más que contigo mismo!
                 </div>
 
+                
             </div>
         </div>
+<!--Modal para amigo ya asignado --> 
+        <div id="modalOverlay2" class="modal-overlay" style="display: none;">
+            <div class="modal-container">
+                <button class="modal-close" onclick="cerrarModal()">×</button>
+                <h1 class="modal-subtitle">¡Ya tienes un amigo secreto asignado!</h1>
+                <div class="result-person" id="resultPerson2">Nombre de la persona</div>
+                <div class="result-arrow">🎯</div>
+                <p class="modal-title">Tu amigo secreto es:</p>
+                <div class="result-label">TU AMIGO SECRETO ES:</div>
+                <div class="result-amigo" id="resultAmigo2">Nombre del amigo secreto</div>
+            </div>
     </main>
 
     <script src="app.js" defer></script>

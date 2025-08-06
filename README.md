@@ -74,26 +74,6 @@ Esta aplicación está diseñada para funcionar perfectamente en:
 
 ---
 
-## 🎨 ¿Cómo se ve la aplicación?
-
-### **Colores y diseño:**
-- **Fondo degradado azul-púrpura** (#667eea → #764ba2) - Gradiente moderno y acogedor
-- **Sección degradada gris-beige** (#f7fafc → #fef7f0) - Fondo suave y cálido
-- **Botones rosa degradado** (#f093fb → #f5576c) - Para acciones principales
-- **Botones azul degradado** (#4facfe → #00f2fe) - Para acciones secundarias
-- **Texto gris oscuro** (#2d3748) - Fácil de leer y moderno
-- **Verde suave** (#48bb78) - Para resultados exitosos
-- **Sombras suaves** - Efectos modernos y elegantes
-
-### **Elementos principales:**
-1. **Header con gradiente** - Título y imagen decorativa sobre fondo degradado
-2. **Sección de entrada con gradiente** - Donde agregas los nombres con fondo suave
-3. **Lista de participantes** - Muestra todos los nombres agregados
-4. **Sección de sorteo** - Aparece cuando hay suficientes personas
-5. **Resultado con gradiente verde** - Te dice quién es tu amigo secreto
-
----
-
 ## 🔧 ¿Cómo está hecha la aplicación?
 
 ### **Archivos que componen la aplicación:**
@@ -234,4 +214,4 @@ Esta aplicación está diseñada para hacer que organizar un amigo secreto sea d
 
 ---
 
-*Desarrollado con ❤️ para hacer las celebraciones más especiales* 
+*Desarrollado con ❤️ por Daniel Murcia PROGRAMORPHOSIS@GMAIL.COM* 

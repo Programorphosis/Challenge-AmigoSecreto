@@ -25,15 +25,33 @@ const elementos = {
     resultado: document.getElementById('resultado'),
     toastContainer: document.getElementById('toast-container'),
     botonSortear: document.querySelector('.button-draw'),
+    botonRecordar: document.querySelector('.button-req'),
     seccionSorteo: document.querySelector('.sorteo-section'),
     inputAgregarParticipante: document.querySelector('.input-section'),
     buttonStartSorteo: document.querySelector('.button-start-sorteo'),
     buttonRestart : document.querySelector('.button-restart'),
     nombresList : document.querySelector('.name-list'),
+    modalOverlay2: document.getElementById('modalOverlay2'),
 };
 
 
+//crea un objeto con colores cremas para asignar aleatopriamente de backgroun a los li de la funcion actualizarLIsta
+const colores = {
+    0: '#f5f5dc',
+    1: '#ffe4c4',
+    2: '#faf0e6',
+    3: '#f0e68c',
+    4: '#e6e6fa',
+    5: '#dcdcdc',
+    6: '#f0fff0',
+    7: '#f0f8ff',
+    8: '#f5f5f5',
+    9: '#fffaf0',
+    10: '#fdf5e6',
+    11: '#f0ffff',
+    12: '#fff0f5',
 
+}
 
 // ========================================
 // FUNCIONES DE LOCALSTORAGE
@@ -119,7 +137,7 @@ const borrarNombresDeLocalStorage = () => {
 
 // Función para agregar nombres a la lsta
 const agregarAmigo = () => {
-    const nombre = elementos.inputNombre.value.trim();
+    const nombre = elementos.inputNombre.value.trim().toLowerCase();
     
     if (!nombre) {
         mostrarToast('Por favor, ingresa un nombre válido.', 'error');
@@ -134,7 +152,7 @@ const agregarAmigo = () => {
     // Agregar nombre a la lista principal
     nombres.push(nombre);
     nombresDisponibles.push(nombre);
-    
+    console.log(`✅ Nombre agregado: ${nombre}`);
     // Limpiar input
     elementos.inputNombre.value = '';
     
@@ -197,6 +215,7 @@ const actualizarLista = () => {
     nombres.forEach(nombre => {
         const li = document.createElement('li');
         li.textContent = nombre;
+        li.style.background= colores[Math.floor(Math.random() * Object.keys(colores).length)];
         li.className = 'nombre-item';
         elementos.listaAmigos.appendChild(li);
     });
@@ -257,26 +276,36 @@ const sortearAmigo = () => {
     }
 
     // Validar que el input de sortear tenga un valor
-    const nombrePersona = elementos.inputSortear.value.trim();
+    const nombrePersona = elementos.inputSortear.value.trim().toLowerCase();
     
     if (!nombrePersona) {
         mostrarToast('Por favor, ingresa tu nombre para sortear tu amigo secreto.', 'error');
         return;
     }
     
-    if (!nombres.includes(nombrePersona)) {
+    if (!nombres.includes(nombrePersona.toLowerCase())) {
         mostrarToast('Tu nombre no está en la lista. Primero debes agregarlo.', 'error');
         return;
     }
     
     if (asignaciones[nombrePersona]) {
         mostrarToast('Ya tienes un amigo secreto asignado.', 'error');
+        elementos.modalOverlay2.style.display = 'flex';
+        elementos.modalOverlay2.style.opacity = '0';
+        setTimeout(() => {
+            elementos.modalOverlay2.style.opacity = '1';
+        }, 10);
+        document.getElementById('resultPerson2').textContent = '';
+        document.getElementById('resultAmigo2').textContent = asignaciones[nombrePersona];
+        // Enfocar el modal para accesibilidad
+        elementos.modalOverlay2.focus();
         return;
     }
     
     // Filtrar nombres disponibles (excluyendo a la persona misma y ya asignados)
     const disponibles = nombresDisponibles.filter(nombre => 
-        nombre !== nombrePersona && !Object.values(asignaciones).includes(nombre)
+        nombre.toLowerCase() !== nombrePersona.toLowerCase() &&
+        !Object.values(asignaciones).includes(nombre.toLowerCase())
     );
     
     if (disponibles.length === 0) {
@@ -305,9 +334,12 @@ const sortearAmigo = () => {
     // Verificar si todos tienen amigo secreto
     if (Object.keys(asignaciones).length === nombres.length) {
         mostrarToast('¡Todos los amigos secretos han sido asignados!', 'success');
-        elementos.botonSortear.disabled = true;
+        elementos.botonSortear.disabled = false;
+        elementos.botonRecordar.style.display = 'flex';
+        elementos.botonRecordar.disabled = false;
+        elementos.botonSortear.style.display = 'none';
         console.log(asignaciones)
-        isSorting = false;
+        // isSorting = false;
     }
  
 };
@@ -341,13 +373,18 @@ const recargarPagina = (e) => {
 // Función para cerrar el modal
 const cerrarModal = () => {
     const modalOverlay = document.getElementById('modalOverlay');
+    const modalOverlay2 = document.getElementById('modalOverlay2');
     modalOverlay.style.opacity = '0';
     modalOverlay.style.display = 'none';
-    
+    modalOverlay2.style.opacity = '0';
+    modalOverlay2.style.display = 'none';
     setTimeout(() => {
         modalOverlay.style.display = 'none';
+        modalOverlay2.style.display = 'none';
     }, 300);
 };
+
+//
 
 // Hacer la función disponible globalmente
 window.cerrarModal = cerrarModal;
