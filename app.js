@@ -16,6 +16,7 @@ const nombres = [];
 const nombresDisponibles = []; // Lista de nombres disponibles para sorteo
 const asignaciones = {}; // Registro de asignaciones realizadas
 let isSorting = false;
+let todosAsignadosNotificado = false; // Evita repetir mensaje final
 
 // Seleccionar elementos HTML una sola vez
 const elementos = {
@@ -32,6 +33,7 @@ const elementos = {
     buttonRestart : document.querySelector('.button-restart'),
     nombresList : document.querySelector('.name-list'),
     modalOverlay2: document.getElementById('modalOverlay2'),
+    instrucciones: document.getElementById('instruccionesJuego'),
 };
 
 
@@ -171,6 +173,14 @@ const agregarAmigo = () => {
     } else {
         elementos.buttonStartSorteo.style.display = 'none';
     }
+
+    // Actualizar instrucciones en fase de registro
+    if (!isSorting) {
+        actualizarInstrucciones(
+            '📝 Registro de participantes',
+            `Se han agregado <strong>${nombres.length}</strong> participante(s). Agrega más nombres. Debe haber un <strong>mínimo de 2</strong> y el número total debe ser <strong>par</strong> para habilitar el sorteo.`
+        );
+    }
 };
 
 // Función para mostrar toasts
@@ -259,6 +269,11 @@ const iniciarSorteo = () => {
     }
     
     mostrarToast('¡Sorteo iniciado! Ahora puedes asignar amigos secretos.', 'info');
+
+    actualizarInstrucciones(
+        '🎯 Sorteo en progreso',
+        'Ahora cada participante, de uno en uno y en privado, debe escribir su nombre en el campo "Quién eres?" y presionar "Sortear amigo". El sistema le mostrará su amigo secreto en una ventana modal. Si lo olvida más adelante, podrá volver a escribir su nombre cuando todos hayan sido asignados y presionar "Recordar".'
+    );
 };
 
 // Función para sortear amigo secreto individual
@@ -299,6 +314,12 @@ const sortearAmigo = () => {
         document.getElementById('resultAmigo2').textContent = asignaciones[nombrePersona];
         // Enfocar el modal para accesibilidad
         elementos.modalOverlay2.focus();
+        if (Object.keys(asignaciones).length === nombres.length) {
+            actualizarInstrucciones(
+                '🔐 Consulta de asignaciones',
+                'Todos los participantes ya tienen su amigo secreto. Si alguien olvidó su asignación, puede volver a escribir su nombre y presionar el botón "Recordar" para que la aplicación le muestre nuevamente el resultado.'
+            );
+        }
         return;
     }
     
@@ -340,6 +361,13 @@ const sortearAmigo = () => {
         elementos.botonSortear.style.display = 'none';
         console.log(asignaciones)
         // isSorting = false;
+        if (!todosAsignadosNotificado) {
+            todosAsignadosNotificado = true;
+            actualizarInstrucciones(
+                '✅ Todos asignados',
+                '¡El sorteo ha finalizado! Ahora, si alguien olvidó a quién le toca, puede ingresar su nombre y usar el botón "Recordar" para ver nuevamente su amigo secreto. Mantengan el dispositivo en un lugar privado para que nadie más vea otras asignaciones.'
+            );
+        }
     }
  
 };
@@ -428,6 +456,10 @@ const reiniciarSorteo = () => {
     borrarNombresDeLocalStorage();
     window.location.reload();
     mostrarToast('Sorteo reiniciado. Puedes volver a agregar participantes.', 'success');
+    actualizarInstrucciones(
+        '🔄 Nuevo sorteo',
+        'Ingresa nuevamente los nombres de los participantes. Recuerda: mínimo 2 y cantidad par para comenzar.'
+    );
 };
 
 // Inicialización
@@ -440,6 +472,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Cargar nombres guardados en localStorage al iniciar la página
     cargarNombresDesdeLocalStorage();
+    // Instrucciones iniciales si no hay nombres cargados
+    if (!nombres.length) {
+        actualizarInstrucciones(
+            '👋 Bienvenidos',
+            'Paso 1: Cada participante (o alguien encargado) ingresa un nombre y presiona "Añadir". Paso 2: Cuando haya al menos 2 nombres y el total sea par, presiona "Iniciar Sorteo".'
+        );
+    }
     
     // Agregar evento Enter al input de agregar
     elementos.inputNombre.addEventListener('keypress', (e) => {
@@ -472,6 +511,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// ========================================
+// INSTRUCCIONES DINÁMICAS
+// ========================================
+function actualizarInstrucciones(titulo, htmlTexto) {
+    if (!elementos.instrucciones) return;
+    elementos.instrucciones.innerHTML = `
+        <h2 class="instructions-title">${titulo}</h2>
+        <p class="instructions-text">${htmlTexto}</p>
+    `;
+}
 
 // Hacer todas las funciones disponibles globalmente para los onclick del HTML
 window.agregarAmigo = agregarAmigo;

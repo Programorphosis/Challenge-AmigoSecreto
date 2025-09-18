@@ -1,26 +1,30 @@
 /* ========================================
    VARIABLES CSS
    ======================================== */
+/* Paleta refinada: Indigo (primario), Sky (acento), neutrales y semánticos */
 :root {
-    /* Nueva paleta de colores moderna y amigable */
-    --color-primary: #667eea;           /* Azul suave moderno */
-    --color-primary-light: #764ba2;     /* Púrpura suave para gradientes */
-    --color-secondary: #f7fafc;         /* Gris muy claro, casi blanco */
-    --color-secondary-warm: #fef7f0;    /* Beige muy suave */
-    --color-tertiary: #e2e8f0;          /* Gris claro para elementos secundarios */
-    --color-button: #f093fb;            /* Rosa suave moderno */
-    --color-button-hover: #f5576c;      /* Rosa más intenso para hover */
-    --color-button-secondary: #4facfe;  /* Azul claro para botones secundarios */
-    --color-button-secondary-hover: #00f2fe; /* Azul más claro para hover */
-    --color-text: #2d3748;              /* Gris oscuro suave para texto */
-    --color-text-light: #4a5568;        /* Gris medio para texto secundario */
-    --color-white: #ffffff;             /* Blanco puro */
-    --color-success: #48bb78;           /* Verde suave para éxito */
-    --color-error: #ff2d88;             /* Rojo suave para errores */
-    --color-warning: #ed8936;           /* Naranja suave para advertencias */
-    --color-info: #4299e1;              /* Azul claro para información */
-    --color-border: #e2e8f0;            /* Gris claro para bordes */
-    --color-shadow: rgba(102, 126, 234, 0.1); /* Sombra suave con color primario */
+    --color-primary: #4F46E5; /* Indigo 600 */
+    --color-primary-light: #6366F1; /* Indigo 500 */
+    --color-primary-soft: #EEF2FF; /* Fondo suave */
+    --color-secondary: #FFFFFF; /* Superficie principal */
+    --color-secondary-warm: #F8FAFC; /* Alternativo claro */
+    --color-tertiary: #E2E8F0; /* Bordes */
+    --color-body-bg: #F1F5F9; /* Fondo general */
+    --color-accent: #0EA5E9; /* Sky 500 */
+    --color-accent-hover: #0284C7; /* Sky 600 */
+    --color-button: var(--color-primary-light);
+    --color-button-hover: var(--color-primary);
+    --color-button-secondary: var(--color-accent);
+    --color-button-secondary-hover: var(--color-accent-hover);
+    --color-text: #1E293B; /* Slate 800 */
+    --color-text-light: #475569; /* Slate 600 */
+    --color-white: #FFFFFF;
+    --color-success: #16A34A; /* Green 600 */
+    --color-error: #DC2626; /* Red 600 */
+    --color-warning: #D97706; /* Amber 600 */
+    --color-info: #2563EB; /* Blue 600 */
+    --color-border: #E2E8F0;
+    --color-shadow: rgba(79, 70, 229, 0.12);
 }
 
 /* ========================================
@@ -35,12 +39,66 @@
 body {
     min-height: 100vh;
     width: 100%;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    background: linear-gradient(160deg, var(--color-body-bg) 0%, var(--color-primary-soft) 70%);
     display: flex;
     justify-content: center;
     align-items: center;
     border: none;
     overflow-x: hidden;
+    color: var(--color-text);
+    font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ========================================
+   INSTRUCCIONES DEL JUEGO
+   ======================================== */
+.instructions-box {
+    width: 100%;
+    max-width: 900px;
+    background: var(--color-white);
+    border: 2px solid var(--color-border);
+    border-radius: 20px;
+    padding: 20px 24px;
+    margin: 10px 0 5px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    font-family: "Inter", sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.instructions-box:before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-button-secondary) 60%, var(--color-error) 100%);
+}
+
+.instructions-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.instructions-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-text-light);
+}
+
+.instructions-text strong {
+    color: var(--color-primary-light);
+    font-weight: 700;
+}
+
+@media (max-width: 600px) {
+    .instructions-box { padding: 16px 18px; }
+    .instructions-title { font-size: 18px; }
+    .instructions-text { font-size: 13px; }
 }
 
 .main-content {
@@ -78,15 +136,15 @@ body {
    ======================================== */
 .input-section {
     flex: 60%;
-    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-warm) 100%);
+    background: var(--color-secondary);
     border: 1px solid var(--color-border);
-    border-radius: 64px 64px 0 0;
+    border-radius: 48px 48px 0 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 28px 24px 32px;
     width: 100%;
-    box-shadow: 0 20px 40px var(--color-shadow);
+    box-shadow: 0 12px 32px var(--color-shadow);
 }
 
 .section-title {
@@ -135,17 +193,17 @@ body {
    BOTONES
    ======================================== */
 button {
-    padding: 15px 15px;
+    padding: 14px 18px;
     font-family: "Inter", sans-serif;
-    font-size: 16px;
-    border: 2px solid var(--color-border);
-    border-radius: 25px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-size: 15px;
+    border: 1px solid var(--color-border);
+    border-radius: 18px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background .25s ease, color .25s ease, box-shadow .25s ease, transform .15s ease;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
-    background: linear-gradient(135deg, var(--color-button) 0%, var(--color-button-hover) 100%);
+    background: var(--color-button);
     color: var(--color-white);
     font-weight: 600;
 }
@@ -155,17 +213,6 @@ button:hover {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-.button-add {
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-button-secondary) 100%);
-    color: var(--color-white);
-    border-radius: 0 25px 25px 0;
-    border: 2px solid var(--color-primary) ;
-}
-
-.button-add:hover {
-    background: linear-gradient(135deg, var(--color-primary) 60%, var(--color-button-secondary) 100%);
-    border: 2px solid var(--color-button-secondary) ;
-}
 
 .button-container {
     width: 100%;
@@ -194,39 +241,43 @@ button:hover {
     margin-bottom: 15px;
 }
 
+/* Botón sortear */
 .button-draw {
     display: flex;
     align-items: center;
-    padding: 12px 40px;
+    padding: 12px 32px;
     color: var(--color-white);
-    background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success) 100%);
-    font-size: 16px;
-    border-radius: 0 25px 25px 0;
-    border: 2px solid var(--color-success);
+    background: var(--color-success);
+    font-size: 15px;
+    border-radius: 0 18px 18px 0;
+    border: 1px solid var(--color-success);
     font-weight: 600;
 }
 
+.button-add {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-radius: 0 18px 18px 0;
+    border: 1px solid var(--color-primary);
+}
+.button-add:hover { background: var(--color-primary-light); }
+
+/* Botón recordar */
 .button-req {
     display: none;
     align-items: center;
-    padding: 12px 40px;
+    padding: 12px 32px;
     color: var(--color-white);
-    background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success) 100%);
-    font-size: 16px;
+    background: var(--color-success);
+    font-size: 15px;
     justify-content: center;
-    align-items: center;
     text-align: center;
-    border-radius: 0 25px 25px 0;
-    border: 2px solid var(--color-success);
+    border-radius: 0 18px 18px 0;
+    border: 1px solid var(--color-success);
     font-weight: 600;
 }
 
-.button-draw:hover {
-    background: linear-gradient(135deg, var(--color-button-secondary) 0%, var(--color-success) 100%);
-   
-    border: 0px solid var(--color-success);
-    
-}
+.button-draw:hover { background: #15803D; }
 
 .button-draw img {
     margin-right: 40px;
@@ -245,60 +296,40 @@ button:hover {
 
 
 .button-reset {
-    background: linear-gradient(135deg, var(--color-error) 0%, var(--color-error) 100%);
+    background: var(--color-error);
     color: var(--color-white);
     border: 1px solid var(--color-error);
-    font-size: medium;
+    font-size: 14px;
     height: 100%;
-    width: 150px;
-    
+    width: 140px;
 }
 .button-restart {
-    
-    background: linear-gradient(135deg, var(--color-primary) 50%, var(--color-info) 100%);
+    background: var(--color-button-secondary);
     color: var(--color-white);
-    font-size: medium;
+    font-size: 14px;
     height: 100%;
-    width: 150px;
+    width: 140px;
+    border: 1px solid var(--color-button-secondary);
 }
+.button-reset:hover { background: #B91C1C; }
+.button-restart:hover { background: var(--color-button-secondary-hover); }
 
-.button-reset:hover {
-    background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text-light) 100%);
-    border-color: var(--color-text);
-    transform: translateY(-2px);
-    color: var(--color-error);
-}
-.button-restart:hover {
-    background: linear-gradient(135deg, var(--color-primary) 50%, var(--color-primary) 100%);
-    border-color: var(--color-primary);
-    transform: translateY(-2px);
-}
-
-/* ========================================
-   LISTAS
-   ======================================== */
-ul {
-    list-style-type: none;
-    color: var(--color-text);
-    font-family: "Inter", sans-serif;
-    font-size: 18px;
-   
-}
+/* Lista de nombres */
 .name-list {
     transition: all 0.3s ease;
-   background: linear-gradient(135deg, var(--color-primary)50%, var(--color-button-secondary) 100%);
+    background: var(--color-primary-soft);
     margin: 20px 0;
-    padding: 8px;
-    border-radius: 20px;
+    padding: 10px 10px 14px;
+    border-radius: 18px;
     width: 100%;
-   height: 240px;
+    height: 240px;
     display: none;
     flex-direction: column;
-    justify-content: satrt;
-    align-items:center;
+    align-items: flex-start;
     flex-wrap: wrap;
     overflow-x: scroll;
-    box-shadow: 2px 2px 2px var(--color-primary) ;
+    border: 1px solid var(--color-tertiary);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.04);
 }
 
 .nombre-item {
@@ -321,15 +352,64 @@ box-shadow: 1px 0px 6px #3195e7 ;
 }
 
 .butcontainers {
-    width: 100vw;
+    position: fixed;
+    top: 18px;
+    right: 18px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-   
-    height: 70px;
-    width: 200px;
+    gap: 10px;
+    z-index: 600; /* Por debajo de modales (1000) pero sobre contenido */
+    width: auto;
+    height: auto;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(6px);
+    padding: 8px 12px;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+    border: 1px solid rgba(255,255,255,0.4);
+}
 
+.butcontainers .button-container {
+    height: auto;
+    width: auto;
+}
+
+.butcontainers button {
+    width: 120px;
+    padding: 10px 14px;
+    font-size: 14px;
+}
+
+@media (max-width: 680px) {
+    .butcontainers {
+        top: 10px;
+        right: 10px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 10px;
+    }
+    .butcontainers button {
+        width: 140px;
+        font-size: 13px;
+        padding: 9px 12px;
+    }
+}
+
+@media (max-width: 420px) {
+    .butcontainers {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 90%;
+        padding: 10px 14px;
+    }
+    .butcontainers button {
+        flex: 1 1 45%;
+        min-width: 120px;
+    }
 }
 
 .result-list {
@@ -344,14 +424,14 @@ box-shadow: 1px 0px 6px #3195e7 ;
    RESULTADOS DEL SORTEO
    ======================================== */
 .resultado-sorteo {
-    background: linear-gradient(135deg, var(--color-success) 0%, #38a169 100%);
-    border: 1px solid var(--color-success);
-    border-radius: 15px;
-    padding: 25px;
+    background: var(--color-success);
+    border: 1px solid #15803D;
+    border-radius: 14px;
+    padding: 24px;
     margin: 15px 0;
     text-align: center;
-    animation: fadeIn 0.5s ease-in;
-    box-shadow: 0 10px 30px var(--color-error);
+    animation: fadeIn 0.4s ease-in;
+    box-shadow: 0 6px 18px rgba(22,163,74,0.35);
     color: var(--color-white);
 }
 
@@ -775,22 +855,16 @@ input:focus-visible {
 }
 
 .button-start-sorteo button {
-    background: linear-gradient(135deg, #667eea 0%, #66c7ea 100%);
+    background: var(--color-button-secondary);
     color: var(--color-white);
-    border: none;
-    font-size: 18px;
-    padding: 15px 40px;
-    border-radius: 25px;
-    font-weight: 700;
-    transition: all 0.3s ease;
+    border: 1px solid var(--color-button-secondary);
+    font-size: 16px;
+    padding: 14px 36px;
+    border-radius: 18px;
+    font-weight: 600;
+    transition: background .25s ease, transform .15s ease;
 }
-
-.button-start-sorteo button:hover {
-    background: linear-gradient(135deg, #667eea 0%, #66c7ea 100%);
-    border: none;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
+.button-start-sorteo button:hover { background: var(--color-button-secondary-hover); }
 
 
 
@@ -814,16 +888,16 @@ input:focus-visible {
 }
 
 .modal-container {
-    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-warm) 100%);
-    border-radius: 20px;
-    padding: 40px;
-    max-width: 500px;
+    background: var(--color-secondary);
+    border-radius: 24px;
+    padding: 40px 38px 44px;
+    max-width: 520px;
     width: 90%;
     text-align: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.25);
     position: relative;
     transform: scale(0.7) translateY(50px);
-    animation: modalSlideIn 0.5s ease forwards 0.2s;
+    animation: modalSlideIn 0.45s ease forwards 0.15s;
 }
 
 .modal-header {
@@ -854,13 +928,12 @@ input:focus-visible {
 }
 
 .modal-content {
-    background: linear-gradient(135deg, var(--color-primary) 30%, var(--color-error) 100%);
-    border-radius: 15px;
-    padding: 35px;
-    margin: 20px 0;
+    background: var(--color-primary);
+    border-radius: 18px;
+    padding: 30px 28px 34px;
+    margin: 24px 0 16px;
     color: var(--color-white);
-    box-shadow: 0 10px 30px var(--color-error);
-    animation: contentGlow 2s ease-in-out infinite alternate;
+    box-shadow: 0 8px 26px rgba(79,70,229,0.45);
 }
 
 .result-person {
@@ -891,11 +964,11 @@ input:focus-visible {
 
 .result-amigo {
     font-size: 30px;
-    font-weight: 900;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    font-weight: 800;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
     font-family: "Inter", sans-serif;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 .modal-note {
@@ -979,14 +1052,6 @@ input:focus-visible {
     }
 }
 
-@keyframes contentGlow {
-    0% {
-        box-shadow: 0 10px 30px rgba(72, 187, 120, 0.3);
-    }
-    100% {
-        box-shadow: 0 15px 40px rgba(72, 187, 120, 0.5);
-    }
-}
 
 @keyframes confettiFall {
     0% {
@@ -1036,7 +1101,3 @@ input:focus-visible {
         flex-direction: column;
     }
 }
-
-/* ========================================
-   MEJORAS DE ACCESIBILIDAD
-   ======================================== */
